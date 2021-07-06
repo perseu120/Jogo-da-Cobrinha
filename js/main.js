@@ -3,9 +3,18 @@ let context = canvas.getContext("2d");
 let box = 32;
 let cobra = [];
 
-snake[0]={
+
+cobra[0]={
     x: 8* box,
     y: 8 * box
+}
+
+let direcao = "right";
+
+let food = {
+    x: Math.floor(Math.random() * 15 +1) * box,
+    y: Math.floor(Math.random() * 15 +1) * box,
+
 }
 
 function criarBG(){
@@ -15,11 +24,89 @@ function criarBG(){
 }
 
 function criarCobra(){
-    for(i = 0; i<cobra.length; i++){
+    for(i = 0 ; i < cobra.length ; i++){
         context.fillStyle = "green";
-        context.fillRect(cobra[i].x , cobra[i].y, box, box)
+        context.fillRect(cobra[i].x , cobra[i].y, box, box);
     }
 }
 
-criarBG();
-criarCobra();
+function drawfood(){
+    context.fillStyle = "red";
+    context.fillRect(food.x, food.y, box , box)
+
+}
+
+document.addEventListener('keydown', update);
+
+function update (event){
+
+    
+    if(event.keyCode == 37 && direcao != "right"){
+        direcao = "left";
+    }
+    if(event.keyCode == 38 && direcao != "down"){
+        direcao = "up";
+    }
+    if(event.keyCode == 39 && direcao != "left"){
+        direcao = "right";
+    }
+    if(event.keyCode == 40 && direcao != "up"){
+        direcao = "down";
+    }
+
+
+}
+
+function iniciarJogo(){
+
+    if(cobra[0].x > 15 * box && direcao == "right"){
+        cobra[0].x = 0;
+    }
+    if(cobra[0].x < 0 && direcao == "left"){
+        cobra[0].x = 16 * box;
+    }
+    if(cobra[0].y > 15 * box && direcao == "down"){
+        cobra[0].y = 0;
+    }
+    if(cobra[0].y < 0 && direcao == "up"){
+        cobra [0].y = 16 * box;
+    }
+
+    criarBG();
+    criarCobra(); 
+    drawfood();
+
+    let cobraX = cobra[0].x;
+    let cobraY = cobra[0].y;
+
+    if(direcao =="right"){
+        cobraX += box;
+    }
+    if(direcao =="left"){
+        cobraX -= box;
+    }
+    if(direcao =="up"){
+        cobraY -= box;
+    }
+    if(direcao =="down"){
+        cobraY += box;
+    }
+
+    
+    if(cobraX != food.x || cobraY != food.y){
+       cobra.pop(); 
+    }else{
+        food.x = Math.floor(Math.random() * 15 +1) * box;
+        food.y = Math.floor(Math.random() * 15 +1) * box;
+    }
+
+    let newhead = {
+        x:cobraX,
+        Y:cobraY
+    }
+    cobra.unshift(newhead);
+    
+}
+
+let jogo = setInterval(iniciarJogo, 100);
+
