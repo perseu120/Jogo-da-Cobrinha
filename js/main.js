@@ -18,25 +18,36 @@ let food = {
 }
 
 function criarBG(){
-    context.fillStyle = "lightgreen";
+    context.fillStyle = "gray";
     context.fillRect(0, 0, 16 * box, 16 * box);
 
 }
 
+/*var cabeca = new Image();
+cabeca.src = 'img/cabeca.png';*/
+
 function criarCobra(){
+
+   /* cabeca = context.createPattern(cabeca, 'repeat');
+    context.fillStyle = cabeca;
+    context.fillRect(cobra[0].x, cobra[0].y , box, box);*/
+
     for(i = 0 ; i < cobra.length ; i++){
         context.fillStyle = "green";
-        context.fillRect(cobra[i].x , cobra[i].y, box, box);
+        context.fillRect(cobra[i].x, cobra[i].y , box, box);
     }
 }
 
+var img = new Image();
+img.src = 'img/maca.png';
+
 function drawfood(){
-    context.fillStyle = "red";
+    fruta = context.createPattern(img, 'repeat');
+    context.fillStyle = fruta;
     context.fillRect(food.x, food.y, box , box)
 
 }
 
-document.addEventListener('keydown', update);
 
 function update (event){
 
@@ -73,8 +84,9 @@ function iniciarJogo(){
     }
 
     criarBG();
-    criarCobra(); 
+    img.onload = criarCobra(); 
     drawfood();
+ 
 
     let cobraX = cobra[0].x;
     let cobraY = cobra[0].y;
@@ -101,8 +113,8 @@ function iniciarJogo(){
     }
 
     let newhead = {
-        x:cobraX,
-        Y:cobraY
+        x:cobrax,
+        Y:cobray
     }
     cobra.unshift(newhead);
     
