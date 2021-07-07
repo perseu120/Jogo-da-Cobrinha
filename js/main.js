@@ -23,16 +23,16 @@ function criarBG(){
 
 }
 
-/*var cabeca = new Image();
-cabeca.src = 'img/cabeca.png';*/
+var cabeca = new Image();
+cabeca.src = 'img/cabeca.png';
 
 function criarCobra(){
 
-   /* cabeca = context.createPattern(cabeca, 'repeat');
+    cabeca = context.createPattern(cabeca, 'repeat');
     context.fillStyle = cabeca;
-    context.fillRect(cobra[0].x, cobra[0].y , box, box);*/
+    context.fillRect(cobra[0].x, cobra[0].y , box, box);
 
-    for(i = 0 ; i < cobra.length ; i++){
+    for(i = 1 ; i < cobra.length ; i++){
         context.fillStyle = "green";
         context.fillRect(cobra[i].x, cobra[i].y , box, box);
     }
@@ -84,7 +84,7 @@ function iniciarJogo(){
     }
 
     criarBG();
-    img.onload = criarCobra(); 
+    criarCobra(); 
     drawfood();
  
 
